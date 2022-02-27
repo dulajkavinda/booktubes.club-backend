@@ -1,0 +1,14 @@
+{
+  "name": "booktubes.club-backend",
+  "version": "1.0.0",
+  "description": "virtual book club",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "bookblub"
+  ],
+  "author": "",
+  "license": "ISC"
+}
