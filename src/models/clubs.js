@@ -9,13 +9,17 @@ const Clubs = mongoose.Schema({
         type: String,
         required: true
     },
+    clubType: {
+        type:Boolean,
+        default:false
+    },
     description: {
         type: String,
         required: true
     },
     img_url: {
         type: String,
-        required: true
+        default: ''
     },
     member_count: {
         type: Number,
