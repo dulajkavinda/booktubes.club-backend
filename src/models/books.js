@@ -13,6 +13,6 @@ const Clubs = mongoose.Schema({
         type: String,
         required: true
     }
-})
+}, {timestamps: true});
 
 mongoose.model('books', Clubs);

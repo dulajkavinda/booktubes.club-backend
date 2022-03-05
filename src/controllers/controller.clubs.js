@@ -47,6 +47,7 @@ const createPost = (req, res) => {
 		const newPost = {
 			description: description,
 			user: user,
+			createdAt: new Date(),
 		};
 
 		//Add data

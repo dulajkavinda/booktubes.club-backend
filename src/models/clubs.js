@@ -33,6 +33,6 @@ const Clubs = mongoose.Schema({
         type:Array,
         default:[]
     }
-})
+}, {timestamps: true});
 
 mongoose.model('clubs', Clubs);

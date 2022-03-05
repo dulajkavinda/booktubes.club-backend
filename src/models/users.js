@@ -17,6 +17,6 @@ const Users = mongoose.Schema({
 		type: Array,
 		default: [],
 	},
-});
+}, {timestamps: true});
 
 mongoose.model('users', Users);
