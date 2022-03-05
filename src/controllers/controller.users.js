@@ -26,7 +26,44 @@ const signUp = (req, res) => {
 	}
 };
 
+//Update readings
+const updateReadings = (req, res) => {
+	const { club, book, user } = req.body;
+
+	if (user) {
+		console.log('Missing user id');
+	} else {
+		const bookRec = {
+			club_id: club,
+			book_id: book,
+			percentage: 0,
+		};
+
+		Club.updateOne({ _id: user }, { $push: { current_readings: bookRec } })
+			.then(res.send({ message: 'Reading added successfully', code: 200 }))
+			.catch((err) => console.log(err));
+	}
+};
+
+//Update readings
+const updateReadingPrecentage = (req, res) => {
+	const { club, book, precentage } = req.body;
+
+	if (user) {
+		console.log('Missing user id');
+	} else {
+		Club.updateOne(
+			{ current_readings: { $elemMatch: { club_id: club, book_id: book } } },
+			{ $set: { 'current_readings.percentage': precentage } },
+		)
+			.then(res.send({ message: 'Rading progress updated successfully', code: 200 }))
+			.catch((err) => console.log(err));
+	}
+};
+
 module.exports = {
 	initial,
 	signUp,
+    updateReadings,
+    updateReadingPrecentage
 };
