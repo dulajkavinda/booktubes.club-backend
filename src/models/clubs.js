@@ -28,6 +28,10 @@ const Clubs = mongoose.Schema({
     members: {
         type: Array,
         default: []
+    },
+    posts:{
+        type:Array,
+        default:[]
     }
 })
 
