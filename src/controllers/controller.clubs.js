@@ -1,5 +1,8 @@
+const mongoose = require('mongoose');
+
 //import schema
-const Club = require('../models/clubs');
+require('../models/clubs');
+const Club = mongoose.model('clubs');
 
 //For Test
 const initial = (req, res) => {
@@ -11,7 +14,7 @@ const createBookClub = (req, res) => {
 	const { name, type, currency, desc, img } = req.body;
 
 	if (!name || !type || !currency || !desc) {
-		console.log('Missing fields');
+		res.send({ message: 'Missing fields', code: 400 });
 	} else {
 		//Validation
 		const newClub = new Club({
@@ -25,37 +28,64 @@ const createBookClub = (req, res) => {
 		//Add data
 		newClub
 			.save()
-			.then(res.send({ message: 'Club created successfully', code: 200 }))
-			.catch((err) => console.log(err));
+			.then((data) =>
+				res.send({ message: 'Club created successfully', code: 200 }),
+			)
+			.catch((err) => res.send({ message: err, code: 400 }));
 	}
 };
 
 //Update members of  Book Club
 const updateMembers = (req, res) => {
 	const { user } = req.body;
+	const { id } = req.params;
 
-	if (user) {
-		console.log('Missing user id');
+	if (!user) {
+		res.send({ message: 'Missing user id', code: 400 });
 	} else {
-        Club.updateOne({ _id: user }, { $push: { members: user } })
-			.then(res.send({ message: 'Club created successfully', code: 200 }))
-			.catch((err) => console.log(err));
+		Club.updateOne({ _id: id }, { $push: { members: user } })
+			.then((data) =>
+				res.send({ message: 'Club member added successfully', code: 200 }),
+			)
+			.catch((err) => res.send({ message: err, code: 400 }));
 	}
 };
 
 const updateMemberCount = (req, res) => {
 	const { user } = req.body;
+	const { id } = req.params;
 
-	if (user) {
-        Club.updateOne({ _id: user }, { $inc: { member_count: 1 } })
-			.then(res.send({ message: 'Club created successfully', code: 200 }))
-			.catch((err) => console.log(err));
+	if (!user) {
+		Club.updateOne({ _id: id }, { $inc: { member_count: 1 } })
+			.then((data) =>
+				res.send({ message: 'Member count updated successfully', code: 200 }),
+			)
+			.catch((err) => res.send({ message: err, code: 400 }));
 	}
+};
+
+const getAllClubs = (req, res) => {
+	Club.find({})
+		.then((clubs) => {
+			res.send({ message: 'Records Found', data: clubs, code: 200 });
+		})
+		.catch((err) => res.send({ message: err, code: 400 }));
+};
+
+const getAllClubsByID = (req, res) => {
+	const { id } = req.params;
+	Club.find({ _id: id })
+		.then((clubs) => {
+			res.send({ message: 'Records Found', data: clubs, code: 200 });
+		})
+		.catch((err) => res.send({ message: err, code: 400 }));
 };
 
 module.exports = {
 	initial,
 	createBookClub,
-    updateMembers,
-    updateMemberCount
+	updateMembers,
+	updateMemberCount,
+	getAllClubs,
+	getAllClubsByID,
 };

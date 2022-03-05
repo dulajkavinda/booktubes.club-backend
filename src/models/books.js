@@ -15,4 +15,4 @@ const Clubs = mongoose.Schema({
     }
 })
 
-mongoose.model('clubs', Clubs);
+mongoose.model('books', Clubs);
