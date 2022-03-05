@@ -9,12 +9,15 @@ const {
 	updateMemberCount,
 	getAllClubs,
 	getAllClubsByID,
+	createPost
 } = require('../controllers/controller.clubs');
 
 router.get('/', initial);
 
 //Route for book club creation
 router.post('/createBookClub', createBookClub);
+//Create Post
+router.post('/createPost/:id', createPost);
 //Update members of  Book Club
 router.put('/updateMembers/:id', updateMembers);
 //Update member count of  Book Club

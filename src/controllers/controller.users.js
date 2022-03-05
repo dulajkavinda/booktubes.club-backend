@@ -44,6 +44,7 @@ const updateReadings = (req, res) => {
 		const bookRec = {
 			club_id: club,
 			book_id: book,
+			startedAt: new Date(),
 			percentage: 0,
 		};
 

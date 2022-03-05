@@ -35,6 +35,30 @@ const createBookClub = (req, res) => {
 	}
 };
 
+//Create Post
+const createPost = (req, res) => {
+	const { description, user } = req.body;
+	const { id } = req.params;
+
+	if (!id || !description || !user) {
+		res.send({ message: 'Missing fields', code: 400 });
+	} else {
+		//Validation
+		const newPost = {
+			description: description,
+			user: user,
+			createdAt: new Date(),
+		};
+
+		//Add data
+		Club.updateOne({ _id: id }, { $push: { posts: newPost } })
+			.then((data) => {
+				res.send({ message: 'Post created successfully', code: 200 });
+			})
+			.catch((err) => res.send({ message: err, code: 400 }));
+	}
+};
+
 //Update members of  Book Club
 const updateMembers = (req, res) => {
 	const { user } = req.body;
@@ -88,4 +112,5 @@ module.exports = {
 	updateMemberCount,
 	getAllClubs,
 	getAllClubsByID,
+	createPost,
 };
