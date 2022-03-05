@@ -56,5 +56,6 @@ const updateMemberCount = (req, res) => {
 module.exports = {
 	initial,
 	createBookClub,
-    updateMembers
+    updateMembers,
+    updateMemberCount
 };
