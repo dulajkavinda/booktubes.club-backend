@@ -75,6 +75,7 @@ const updateMembers = (req, res) => {
 	}
 };
 
+//Update number of members
 const updateMemberCount = (req, res) => {
 	const { user } = req.body;
 	const { id } = req.params;
@@ -88,6 +89,7 @@ const updateMemberCount = (req, res) => {
 	}
 };
 
+//Get All book clubs
 const getAllClubs = (req, res) => {
 	Club.find({})
 		.then((clubs) => {
@@ -96,6 +98,7 @@ const getAllClubs = (req, res) => {
 		.catch((err) => res.send({ message: err, code: 400 }));
 };
 
+//Get book club by id
 const getAllClubsByID = (req, res) => {
 	const { id } = req.params;
 	Club.find({ _id: id })

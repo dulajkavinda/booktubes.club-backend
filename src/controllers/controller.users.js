@@ -103,6 +103,32 @@ const getUserById = (req, res) => {
 		.catch((err) => res.send({ message: err, code: 400 }));
 };
 
+//Combine reading data with book data
+const getCurrentReadingsDetails = (req, res) => {
+	User.aggregate([
+		{
+			$match: { _id: req.params.id },
+		},
+		{
+			$unwind: '$current_readings',
+		},
+		{
+			$lookup: {
+				from: '$books',
+				localField: '$current_readings.book_id',
+				foreignField: '$_id',
+				as: 'book_data',
+			},
+			
+		},
+
+	]).then(data => {
+		res.send({ message: 'Records Found', data: data, code: 200 });
+	}).catch(err => {
+		res.send({ message: err, code: 400 });
+	})
+}
+
 module.exports = {
 	initial,
 	signUp,
@@ -110,4 +136,5 @@ module.exports = {
 	updateReadingPrecentage,
 	getUsers,
 	getUserById,
+	getCurrentReadingsDetails
 };
