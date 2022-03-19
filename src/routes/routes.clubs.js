@@ -9,7 +9,18 @@ const {
 	updateMemberCount,
 	getAllClubs,
 	getAllClubsByID,
-	createPost
+	createPost,
+	deleteClub,
+	updateDownvoters,
+	updateUpvoters,
+	downvotePost,
+	upvotePost,
+	createPoll,
+	updatePoll,
+	updatePollVoters,
+	getBooksFromIdList,
+	updatePollDeadline,
+	checkPollLock
 } = require('../controllers/controller.clubs');
 
 router.get('/', initial);
@@ -26,5 +37,27 @@ router.put('/updateMemberCount/:id', updateMemberCount);
 router.get('/getAllClubs', getAllClubs);
 //Get all clubs by id
 router.get('/getAllClubsByID/:id', getAllClubsByID);
+//Delete club
+router.delete('/deleteClub/:id', deleteClub);
+//Update downvoters
+router.put('/updateDownvoters/:id', updateDownvoters);
+//Update upvoters
+router.put('/updateUpvoters/:id', updateUpvoters);
+//Downvote post
+router.put('/downvotePost/:id', downvotePost);
+//Upvote post
+router.put('/upvotePost/:id', upvotePost);
+//Create poll
+router.post('/createPoll/:id', createPoll);
+//Update poll
+router.put('/updatePoll/:id', updatePoll);
+//Update poll voters
+router.put('/updatePollVoters/:id', updatePollVoters);
+//Get books from id list
+router.get('/getBooksFromIdList/:id', getBooksFromIdList);	
+//Update poll deadline
+router.put('/updatePollDeadline/:id', updatePollDeadline);
+//Check if poll is locked
+router.put('/checkPollLock/:id', checkPollLock);
 
 module.exports = router;
