@@ -21,11 +21,7 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
-app.use(
-  cors({
-    origin: "https://www.booktubes.club",
-  })
-);
+app.use(cors());
 
 //Import routes
 const clubs = require("./src/routes/routes.clubs");
@@ -38,8 +34,8 @@ const books = require("./src/routes/routes.books");
 });
  */
 
-app.listen(keys.PORT || keys.PORT, () => {
-  console.log(`Server started at ${keys.PORT}`);
+app.listen(process.env.PORT || keys.PORT, () => {
+  console.log(`Server started at ${process.env.PORT}`);
 
   //Connect to the database
   mongoose.Promise = global.Promise;
