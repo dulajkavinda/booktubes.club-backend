@@ -21,11 +21,7 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
-app.use(
-  cors({
-    origin: "https://www.booktubes.club",
-  })
-);
+app.use(cors());
 
 //Import routes
 const clubs = require("./src/routes/routes.clubs");
