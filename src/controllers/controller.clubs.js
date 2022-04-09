@@ -12,9 +12,9 @@ const initial = (req, res) => {
 
 //Create Book Club
 const createBookClub = (req, res) => {
-	const { name, type, currency, desc, img } = req.body;
+	const { name, type, currency, desc, img, admin } = req.body;
 
-	if (!name || !type || !currency || !desc) {
+	if (!name || !type || !currency || !desc || !admin) {
 		res.send({ message: 'Missing fields', code: 400 });
 	} else {
 		//Validation
@@ -24,6 +24,8 @@ const createBookClub = (req, res) => {
 			clubType: type === 'Paid' ? true : false,
 			description: desc,
 			img_url: img,
+			admin: admin.uid,
+			polls: [],
 		});
 
 		//Add data
