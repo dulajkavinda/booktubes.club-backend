@@ -61,9 +61,6 @@ const updateReadingPrecentage = (req, res) => {
 	const { club, book, percentage } = req.body;
 	const { id } = req.params;
 
-	console.log(club);
-	console.log(percentage);
-
 	if (!id || !club || !book || !percentage) {
 		res.send({ message: 'Missing parameters', code: 400 });
 	} else {
@@ -72,10 +69,9 @@ const updateReadingPrecentage = (req, res) => {
 				_id: id,
 				current_readings: { $elemMatch: { club_id: club, book_id: book } },
 			},
-			{'current_readings.$.percentage': percentage},
+			{ 'current_readings.$.percentage': percentage },
 		)
 			.then((data) => {
-				console.log(data);
 				res.send({
 					message: 'Rading progress updated successfully',
 					code: 200,
@@ -119,15 +115,51 @@ const getCurrentReadingsDetails = (req, res) => {
 				foreignField: '$_id',
 				as: 'book_data',
 			},
-			
 		},
+	])
+		.then((data) => {
+			res.send({ message: 'Records Found', data: data, code: 200 });
+		})
+		.catch((err) => {
+			res.send({ message: err, code: 400 });
+		});
+};
 
-	]).then(data => {
-		res.send({ message: 'Records Found', data: data, code: 200 });
-	}).catch(err => {
-		res.send({ message: err, code: 400 });
-	})
-}
+//Remove book reading
+const removeBookReading = (req, res) => {
+	const { id, book } = req.body;
+
+	if (!id || !book) {
+		res.send({ message: 'Missing parameters', code: 400 });
+	} else {
+		User.updateOne(
+			{ _id: id },
+			{ $pull: { current_readings: { book_id: book } } },
+		)
+			.then((data) =>
+				res.send({ message: 'Reading removed successfully', code: 200 }),
+			)
+			.catch((err) => res.send({ message: err, code: 400 }));
+	}
+};
+
+//Get user id with reading progress for all users
+const getUsersWithReadingProgress = (req, res) => {
+	User.find(
+		{},
+		{
+			_id: 1,
+			user_name: 1,
+			current_readings: 1,
+		},
+	)
+		.then((data) => {
+			res.send({ message: 'Records Found', data: data, code: 200 });
+		})
+		.catch((err) => {
+			res.send({ message: err, code: 400 });
+		});
+};
 
 module.exports = {
 	initial,
@@ -136,5 +168,7 @@ module.exports = {
 	updateReadingPrecentage,
 	getUsers,
 	getUserById,
-	getCurrentReadingsDetails
+	getCurrentReadingsDetails,
+	getUsersWithReadingProgress,
+	removeBookReading,
 };
