@@ -9,7 +9,8 @@ const {
 	updateReadings,
 	getUsers,
 	getUserById,
-	getCurrentReadingsDetails
+	getCurrentReadingsDetails,
+	getUsersWithReadingProgress,
 } = require('../controllers/controller.users');
 
 router.get('/', initial);
@@ -25,5 +26,7 @@ router.get('/getUsers', getUsers);
 router.get('/getUserById/:id', getUserById);
 //Get current readings details
 router.get('/getCurrentReadingsDetails/:id', getCurrentReadingsDetails);
+//Get users with reading progress
+router.get('/getUsersWithReadingProgress', getUsersWithReadingProgress);
 
 module.exports = router;

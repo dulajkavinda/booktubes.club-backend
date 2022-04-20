@@ -5,6 +5,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 
+/* const { checkPollsLock } = require('./src/controllers/controller.clubs');
+ */
+//Scheduler library
+/* const cron = require('node-cron');
+ */
 app.use(morgan("dev"));
 
 require("dotenv").config();
@@ -22,6 +27,12 @@ app.use(cors());
 const clubs = require("./src/routes/routes.clubs");
 const users = require("./src/routes/routes.users");
 const books = require("./src/routes/routes.books");
+
+/* cron.schedule('* * * * *', () => {
+	checkPollsLock();
+	console.log('Task is running for lock voting polls at ' + new Date());
+});
+ */
 
 app.listen(process.env.PORT || keys.PORT, () => {
   console.log(`Server started at ${process.env.PORT}`);

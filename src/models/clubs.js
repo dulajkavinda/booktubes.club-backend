@@ -32,6 +32,14 @@ const Clubs = mongoose.Schema({
     posts:{
         type:Array,
         default:[]
+    },
+    polls:{
+        type:Array,
+        default:[]
+    },
+    admin:{
+        type:String,
+        required:true
     }
 }, {timestamps: true});
 
